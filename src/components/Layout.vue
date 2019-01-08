@@ -3,18 +3,19 @@
   <Layout>
     <Sider ref="side1" collapsible :collapsed-width="78" v-model="isCollapsed">
       <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-        <MenuItem name="1-1">
-        <Icon type="ios-navigate"></Icon>
-        <span>Option 1</span>
-        </MenuItem>
-        <MenuItem name="1-2">
-        <Icon type="ios-search"></Icon>
-        <span>Option 2</span>
-        </MenuItem>
-        <MenuItem name="1-3">
-        <Icon type="ios-settings"></Icon>
-        <span>Option 3</span>
-        </MenuItem>
+        <template v-for="(item, index) in menuItems">
+          <Submenu name="1" v-if="item.children" :key="item.name">
+            <template slot="title">
+                <Icon type="ios-analytics" />
+                {{ item.text }}
+            </template>
+            <MenuItem :name="child.text" v-for="child in item.children" :key="child.text">{{ child.text }}</MenuItem>
+          </Submenu>
+          <MenuItem :name="`menu-${index}`" :key="item.text" v-else>
+          <Icon :type="item.icon"></Icon>
+          <span>{{ item.text }}</span>
+          </MenuItem>
+        </template>
       </Menu>
     </Sider>
     <Layout>
@@ -33,6 +34,18 @@
 </template>
 <script>
 export default {
+  props: {
+    menuItems: {
+      type: Array,
+      default: function () {
+        return [
+          { text: 'Option 1', icon: 'ios-navigate' },
+          { text: 'Option 2', icon: 'ios-search' },
+          { text: 'Option 3', icon: 'ios-settings' }
+        ]
+      }
+    }
+  },
   data () {
     return {
       isCollapsed: false
