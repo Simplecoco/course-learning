@@ -2,16 +2,25 @@
 <div class="layout">
   <Layout>
     <Sider ref="side1" collapsible :collapsed-width="78" v-model="isCollapsed">
-      <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-        <template v-for="(item, index) in menuItems">
-          <Submenu name="1" v-if="item.children" :key="item.name">
+      <Menu :active-name="nowMenuItem" :open-names="openItems" @on-select="onSelect" theme="dark" width="auto" :class="menuitemClasses" accordion>
+        <template v-for="item in menuItems">
+          <Submenu :name="`menu-${item.name}`" v-if="item.children" :key="item.name">
             <template slot="title">
-                <Icon type="ios-analytics" />
-                {{ item.text }}
+                <Icon :type="item.icon" />
+                <span>{{ item.text }}</span>
             </template>
-            <MenuItem :name="child.text" v-for="child in item.children" :key="child.text">{{ child.text }}</MenuItem>
+            <MenuItem
+              :name="`menu-${child.name}`"
+              v-for="child in item.children"
+              :key="child.name"
+              :to="`${$route.matched[0].path}/${child.name}`"
+              :style="{ paddingLeft: '24px' }"
+            >
+              <Icon :type="child.icon" />
+              <span>{{ child.text }}</span>
+            </MenuItem>
           </Submenu>
-          <MenuItem :name="`menu-${index}`" :key="item.text" v-else>
+          <MenuItem :name="`menu-${item.name}`" :key="item.name" :to="`${$route.matched[0].path}/${item.name}`" v-else>
           <Icon :type="item.icon"></Icon>
           <span>{{ item.text }}</span>
           </MenuItem>
@@ -26,7 +35,7 @@
         </div>
       </Header>
       <Content :style="{margin: '20px', background: '#fff', minHeight: '980px'}">
-        Content
+        <slot></slot>
       </Content>
     </Layout>
   </Layout>
@@ -48,7 +57,9 @@ export default {
   },
   data () {
     return {
-      isCollapsed: false
+      isCollapsed: false,
+      curMenuItem: '',
+      openItems: []
     }
   },
   computed: {
@@ -63,11 +74,21 @@ export default {
         'menu-item',
         this.isCollapsed ? 'collapsed-menu' : ''
       ]
+    },
+    nowMenuItem () {
+      if (this.curMenuItem === '') {
+        return `menu-${this.$route.name}`
+      } else {
+        return this.curMenuItem
+      }
     }
   },
   methods: {
     collapsedSider () {
       this.$refs.side1.toggleCollapse()
+    },
+    onSelect (name) {
+      this.curMenuItem = name
     }
   }
 }
@@ -115,7 +136,7 @@ export default {
 .menu-item span {
   display: inline-block;
   overflow: hidden;
-  width: 69px;
+  width: 85px;
   text-overflow: ellipsis;
   white-space: nowrap;
   vertical-align: bottom;
