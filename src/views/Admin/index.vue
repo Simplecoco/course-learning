@@ -21,7 +21,7 @@ export default {
         {
           text: 'Home',
           icon: 'md-home',
-          name: 'home'
+          name: 'admin-home'
         },
         {
           text: '资源管理',
