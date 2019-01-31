@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import Home from './views/Home.vue'
-// import About from './views/About.vue'
 
 // 路由懒加载
+// route level code-splitting
+// this generates a separate chunk (about.[hash].js) for this route
+// which is lazy-loaded when the route is visited.
 // const About = () => import(/* webpackChunkName: "about" */ './views/About.vue')
 
 // Admin
@@ -21,24 +23,29 @@ const ResourceDownload = () => import(/* webpackChunkName: "resource-download" *
 const Exam = () => import(/* webpackChunkName: "exam" */ './views/User/Exam.vue')
 const Chat = () => import(/* webpackChunkName: "chat" */ './views/User/Chat.vue')
 
+// Others
+const Login = () => import(/* webpackChunkName: "login" */ './views/Login.vue')
+const Register = () => import(/* webpackChunkName: "register" */ './views/Register.vue')
+
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: Home
-    // },
-    // {
-      // path: '/about',
-      // name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      // component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-      // component: About
-    // },
+    {
+      path: '/',
+      name: 'home',
+      redirect: 'login'
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
+    },
     {
       path: '/admin',
       name: 'admin',
@@ -99,6 +106,6 @@ export default new Router({
           component: Chat
         }
       ]
-    },
+    }
   ]
 })

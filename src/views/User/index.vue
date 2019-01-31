@@ -26,7 +26,7 @@ export default {
         {
           text: '资源下载',
           icon: 'md-cloud-download',
-          name: 'resource-download',
+          name: 'resource-download'
         },
         {
           text: '课程测验',
