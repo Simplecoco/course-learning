@@ -139,7 +139,7 @@ export default {
         name: 'Jon Snow',
         fileType: 'jpg',
         desc: 'New York No. 1 Lake Park'
-      }],
+      }]
       // uploadForm: {
       //   data: {
       //     file: '',
@@ -170,7 +170,7 @@ export default {
     },
     download (index) {
       console.log('下载')
-    },
+    }
     // remove (index) {
     //   this.data6.splice(index, 1)
     // },
