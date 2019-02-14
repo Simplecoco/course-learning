@@ -1,11 +1,11 @@
 <template lang="html">
-  <div class="admin-course-resource content-container">
+  <div class="admin-info content-container">
     <div class="upload-button-container">
       <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true">
         发布公告
       </Button>
     </div>
-    <div class="admin-course-resource-table">
+    <div class="admin-info-table">
       <Table border :columns="columns12" :data="data6">
         <template slot-scope="{ row }" slot="name">
           <strong>{{ row.name }}</strong>
@@ -128,7 +128,7 @@ export default {
     text-align: right;
   }
 
-  .admin-course-resource-table {
+  .admin-info-table {
     margin-top: 15px;
   }
 </style>
