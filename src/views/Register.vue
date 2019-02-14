@@ -78,7 +78,7 @@ export default {
       } else {
         if (this.formValidate.passwdCheck !== '') {
           // 对第二个密码框单独验证
-          console.log(this.$refs.formValidate);
+          console.log(this.$refs.formValidate)
           this.$refs.formValidate.validateField('passwdCheck')
         }
         callback()
