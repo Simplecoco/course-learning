@@ -1,7 +1,16 @@
 <template>
 <div class="layout">
   <Layout>
-    <Sider ref="side1" collapsible :collapsed-width="78" v-model="isCollapsed">
+    <Sider ref="side1" collapsible :collapsed-width="78" v-model="isCollapsed" @on-collapse="onCollapse">
+      <div class="avatar-con">
+        <Avatar
+          size="large"
+          style="color: white; background-color: #2d8cf0; font-weight: bold; font-size: 17px"
+        >
+          {{ userName.slice(0, 1).toUpperCase() }}
+        </Avatar>
+        <span v-show="!isCollapsed" style="display: block; margin: 7px; font-size: 15px; color: white">{{ userName }}</span>
+      </div>
       <Menu :active-name="nowMenuItem" :open-names="openItems" @on-select="onSelect" theme="dark" width="auto" :class="menuitemClasses" accordion>
         <template v-for="item in menuItems">
           <Submenu :name="`menu-${item.name}`" v-if="item.children" :key="item.name">
@@ -44,6 +53,14 @@
 <script>
 export default {
   props: {
+    userName: {
+      type: String,
+      default: 'test'
+    },
+    // avatar: {
+    //   type: String,
+    //   default: ''
+    // },
     menuItems: {
       type: Array,
       default: function () {
@@ -118,6 +135,10 @@ export default {
   background: #5b6270;
   border-radius: 3px;
   margin: 15px auto;
+}
+
+.avatar-con {
+  margin-top: 15px;
 }
 
 .menu-icon {
