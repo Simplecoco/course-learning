@@ -1,7 +1,7 @@
 <template>
 <div class="layout">
   <Layout>
-    <Sider ref="side1" collapsible :collapsed-width="78" v-model="isCollapsed" @on-collapse="onCollapse">
+    <Sider ref="side1" collapsible :collapsed-width="78" v-model="isCollapsed">
       <div class="avatar-con">
         <Avatar
           size="large"

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="admin-exam-resource">
+  <div class="admin-exam-resource content-container">
     <Upload
       multiple
       type="drag"
