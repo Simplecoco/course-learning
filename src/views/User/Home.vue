@@ -1,14 +1,17 @@
 <template lang="html">
   <div class="user-home content-container">
-    user-home
+    <notice-card></notice-card>
   </div>
 </template>
 
 <script>
+import NoticeCard from '../../components/NoticeCard'
+
 export default {
   data () {
     return {}
-  }
+  },
+  components: { NoticeCard }
 }
 </script>
 
