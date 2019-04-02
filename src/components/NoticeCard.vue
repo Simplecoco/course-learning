@@ -25,7 +25,8 @@
       :mask-closable="false"
     >
       <!-- <h3>{{ modal.name }}</h3> -->
-      <p class="modal-content">{{ modal.content }}</p>
+      <p class="modal-content">{{ `title: ${modal.name}` }}</p>
+      <p class="modal-content">{{ `content: ${modal.content}` }}</p>
       <!-- <Form ref="uploadForm" :model="uploadForm.data" :rules="uploadForm.rule" :label-width="80">
         <FormItem label="标题" prop="name">
           <Input v-model="uploadForm.data.name" placeholder="Enter your name"></Input>
