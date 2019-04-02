@@ -14,12 +14,33 @@
         <Divider orientation="right">
           Right Text
           <Avatar
-            style="color: white; background-color: #2d8cf0; font-weight: bold; font-size: 17px"
+            style="color: white; background-color: #87d068; font-weight: bold; font-size: 17px"
           >
             R
           </Avatar>
         </Divider>
-        <p>Steven Paul Jobs was an American entrepreneur and business magnate. He was the chairman, chief executive officer, and a co-founder of Apple Inc.</p>
+        <p>您好，您能说中文吗？</p>
+        
+        <Divider orientation="left">
+          <Avatar
+            style="color: white; background-color: #2d8cf0; font-weight: bold; font-size: 17px"
+          >
+            L
+          </Avatar>
+          Left Text
+        </Divider>
+        <p>Can you speak English?</p>
+        <Divider orientation="right">
+          Right Text
+          <Avatar
+            style="color: white; background-color: #87d068; font-weight: bold; font-size: 17px"
+          >
+            R
+          </Avatar>
+        </Divider>
+        <p>不，我不能</p>
+
+        
       </Card>
     </div>
     <div class="chat-input">

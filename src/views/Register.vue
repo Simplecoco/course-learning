@@ -5,7 +5,7 @@
       <Col :sm="8" :xs="20">
         <Form class="register-form" ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
           <Divider>注册课程学习系统</Divider>
-          <FormItem label="姓名" prop="name">
+          <FormItem label="用户名" prop="name">
             <Input v-model="formValidate.name" placeholder="请输入你的真实姓名"></Input>
           </FormItem>
           <FormItem label="学号" prop="stuId">
@@ -110,22 +110,26 @@ export default {
       ruleValidate: {
         name: [{
           required: true,
-          message: 'The name cannot be empty',
+          message: '用户名不能为空',
           trigger: 'blur'
         }],
         stuId: [{
           required: true,
-          message: 'The stuId cannot be empty',
+          message: '学号不能为空',
+          trigger: 'blur'
+        }, {
+          type: 'number',
+          message: '学号格式不正确',
           trigger: 'blur'
         }],
         mail: [{
           required: true,
-          message: 'Mailbox cannot be empty',
+          message: '邮箱不能为空',
           trigger: 'blur'
         },
         {
           type: 'email',
-          message: 'Incorrect email format',
+          message: '邮箱格式错误',
           trigger: 'blur'
         }],
         passwd: [{
@@ -191,6 +195,7 @@ export default {
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
+          console.log(this.formValidate, this.ruleValidate)
           this.$Message.success('Success!')
         } else {
           this.$Message.error('Fail!')

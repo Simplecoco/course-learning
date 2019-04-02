@@ -106,17 +106,17 @@ export default {
         align: 'center'
       }],
       data6: [{
-        name: 'John Brown',
+        name: '微积分讲义',
         fileType: 'pdf',
         desc: 'New York No. 1 Lake Park'
       },
       {
-        name: 'Jim Green',
+        name: '线性代数讲义',
         fileType: 'ppt',
         desc: 'New York No. 1 Lake Park'
       },
       {
-        name: 'Jim Green',
+        name: '电子集成电路讲义',
         fileType: 'pptx',
         desc: 'New York No. 1 Lake Park'
       },
