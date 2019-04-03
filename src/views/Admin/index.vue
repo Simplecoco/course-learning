@@ -37,6 +37,16 @@ export default {
               text: '考试管理',
               icon: 'md-create',
               name: 'exam-resource'
+            },
+            {
+              text: '试卷管理',
+              icon: 'md-pulse',
+              name: 'answer-manage'
+            },
+            {
+              text: '题库管理',
+              icon: 'md-albums',
+              name: 'question-bank'
             }
           ]
         },

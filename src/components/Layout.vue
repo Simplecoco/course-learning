@@ -76,7 +76,7 @@ export default {
     return {
       isCollapsed: false,
       curMenuItem: '',
-      openItems: []
+      openItems: ['menu-resource']
     }
   },
   computed: {

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="admin-question-bank content-container">
-    admin-home
+    admin-question-bank
   </div>
 </template>
 

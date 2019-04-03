@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="admin-answer-manage content-container">
-    admin-home
+    admin-answer-manage
   </div>
 </template>
 
