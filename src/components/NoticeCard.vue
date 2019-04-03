@@ -5,8 +5,8 @@
         <Icon size="25" type="md-list-box" style="vertical-align: top" color="#2d8cf0" />
         公告 & 信息
       </Divider> -->
-      <p slot="title">
-          <Icon type="md-list-box"></Icon>
+      <p slot="title" class="notice-container-title">
+          <Icon type="md-list-box" size='20'></Icon>
           公告 & 信息
       </p>
       <ul>
@@ -100,6 +100,11 @@ export default {
 </script>
 
 <style scoped lang="less">
+  .notice-container-title {
+    text-align: left;
+    font-size: 15px;
+  }
+    
   .notice-li {
     position: relative;
     list-style: none;
