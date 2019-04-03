@@ -9,7 +9,7 @@
         type="success" 
         shape="circle"
         size="large"
-        icon="md-chatboxes"
+        icon="logo-twitch"
         style="width: 50px; height: 50px"
       >
       </Button>
