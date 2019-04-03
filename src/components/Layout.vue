@@ -43,7 +43,7 @@
           课程学习中心
         </div>
       </Header>
-      <Content :style="{margin: '20px', background: '#fff', minHeight: '980px'}">
+      <Content :style="{margin: '20px', background: '#fff', minHeight: '580px'}">
         <slot></slot>
       </Content>
     </Layout>
