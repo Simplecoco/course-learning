@@ -3,7 +3,7 @@
       <Card dis-hover>
         <p slot="title" class="exam-title"><Icon type="md-paper" size="20"/> 课程测验</p>
         <Row :gutter="15">
-          <Col span="8" v-for="item in cards">
+          <Col span="8" v-for="item in cards" :key="item.eid">
             <Card class="exam-card" @click.native="openExamCard(item)">
               <p slot="title">{{ item.title }}</p>
               <p>考试时间：{{ item.time }}</p>
