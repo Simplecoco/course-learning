@@ -20,7 +20,8 @@ const UserInfo = () => import(/* webpackChunkName: "user-info" */ './views/Admin
 const User = () => import(/* webpackChunkName: "user" */ './views/User/index.vue')
 const UserHome = () => import(/* webpackChunkName: "user-home" */ './views/User/Home.vue')
 const ResourceDownload = () => import(/* webpackChunkName: "resource-download" */ './views/User/ResourceDownload.vue')
-const Exam = () => import(/* webpackChunkName: "exam" */ './views/User/Exam.vue')
+const Exam = () => import(/* webpackChunkName: "exam" */ './views/User/Exam/index.vue')
+const ExamDetail = () => import(/* webpackChunkName: "exam-detail" */ './views/User/Exam/ExamDetail.vue')
 const Chat = () => import(/* webpackChunkName: "chat" */ './views/User/Chat.vue')
 
 // Others
@@ -98,7 +99,12 @@ export default new Router({
         {
           path: 'exam',
           name: 'exam',
-          component: Exam
+          component: Exam,
+        },
+        {
+          path: 'exam-detail/:eid',
+          name: 'exam-detail',
+          component: ExamDetail
         },
         {
           path: 'chat',
