@@ -1,13 +1,11 @@
 <template lang="html">
   <div class="user-exam-detail content-container">
     <Card dis-hover class="exam-detail-card">
-      <p slot="title" class="exam-detail-title" @click="backToExam">
+      <p slot="title">{{ this.examTitle }}</p>
+      <p slot="extra" class="exam-detail-title" @click="backToExam">
           <Icon type="md-arrow-back" size="20"/> 
           返回测验列表
       </p>
-      <Divider>
-        {{ this.examTitle }}
-      </Divider>
       <Row :gutter="15" class-name="exam-detail-row">
         <Col span="5" class-name="exam-detail-col">
           <Card class="exam-detail-list-card" dis-hover>
@@ -168,7 +166,7 @@ export default {
     }
   },
   mounted () {
-    if (!this.$route.params.examTitle || !this.$route.params.examTitle) {
+    if (!this.$route.params.eid || !this.$route.params.examTitle) {
       this.$router.push({ name: 'exam' })
     } else {
       this.eid = this.$route.params.eid
@@ -238,7 +236,7 @@ export default {
 
 <style lang="less" scoped>
   .exam-detail-title {
-    text-align: left;
+    // text-align: left;
     font-size: 15px;
     cursor: pointer;
     &:hover {
