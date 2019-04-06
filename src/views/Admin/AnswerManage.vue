@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="admin-exam-resource">
-    admin-exam-resource
+  <div class="admin-answer-manage content-container">
+    admin-answer-manage
   </div>
 </template>
 

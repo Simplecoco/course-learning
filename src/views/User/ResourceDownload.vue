@@ -1,11 +1,11 @@
 <template lang="html">
-  <div class="admin-course-resource content-container">
-    <div class="upload-button-container">
+  <div class="user-resource-download content-container">
+    <!-- <div class="upload-button-container">
       <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true">
         上传资源
       </Button>
-    </div>
-    <div class="admin-course-resource-table">
+    </div> -->
+    <div class="user-resource-download-table">
       <Table border :columns="columns12" :data="data6">
         <template slot-scope="{ row }" slot="name">
           <strong>{{ row.name }}</strong>
@@ -13,11 +13,11 @@
         <template slot-scope="{ row, index }" slot="action">
           <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">查看</Button>
           <Button type="default" size="small" style="margin-right: 5px" @click="download(index)">下载</Button>
-          <Button type="error" size="small" @click="remove(index)">删除</Button>
+          <!-- <Button type="error" size="small" @click="remove(index)">删除</Button> -->
         </template>
       </Table>
     </div>
-    <Modal
+    <!-- <Modal
       v-model="uploadModal"
       title="上传课程资源"
       :loading="uploadLoading"
@@ -41,7 +41,7 @@
             <Input v-model="uploadForm.data.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
         </FormItem>
       </Form>
-    </Modal>
+    </Modal> -->
   </div>
 </template>
 
@@ -49,8 +49,8 @@
 export default {
   data () {
     return {
-      uploadModal: false,
-      uploadLoading: true,
+      // uploadModal: false,
+      // uploadLoading: true,
       columns12: [{
         title: 'Name',
         slot: 'name'
@@ -106,17 +106,17 @@ export default {
         align: 'center'
       }],
       data6: [{
-        name: 'John Brown',
+        name: '微积分讲义',
         fileType: 'pdf',
         desc: 'New York No. 1 Lake Park'
       },
       {
-        name: 'Jim Green',
+        name: '线性代数讲义',
         fileType: 'ppt',
         desc: 'New York No. 1 Lake Park'
       },
       {
-        name: 'Jim Green',
+        name: '电子集成电路讲义',
         fileType: 'pptx',
         desc: 'New York No. 1 Lake Park'
       },
@@ -139,26 +139,26 @@ export default {
         name: 'Jon Snow',
         fileType: 'jpg',
         desc: 'New York No. 1 Lake Park'
-      }],
-      uploadForm: {
-        data: {
-          file: '',
-          name: '',
-          desc: ''
-        },
-        rule: {
-          file: [
-            { required: true, message: '请上传文件', trigger: 'blur' }
-          ],
-          name: [
-            { required: true, message: '文件名不能为空', trigger: 'blur' }
-          ],
-          desc: [
-            { required: false, message: 'Please enter a personal introduction', trigger: 'blur' },
-            { type: 'string', min: 20, message: 'Introduce no less than 20 words', trigger: 'blur' }
-          ]
-        }
-      }
+      }]
+      // uploadForm: {
+      //   data: {
+      //     file: '',
+      //     name: '',
+      //     desc: ''
+      //   },
+      //   rule: {
+      //     file: [
+      //       { required: true, message: '请上传文件', trigger: 'blur' }
+      //     ],
+      //     name: [
+      //       { required: true, message: '文件名不能为空', trigger: 'blur' }
+      //     ],
+      //     desc: [
+      //       { required: false, message: 'Please enter a personal introduction', trigger: 'blur' },
+      //       { type: 'string', min: 20, message: 'Introduce no less than 20 words', trigger: 'blur' }
+      //     ]
+      //   }
+      // }
     }
   },
   methods: {
@@ -170,30 +170,30 @@ export default {
     },
     download (index) {
       console.log('下载')
-    },
-    remove (index) {
-      this.data6.splice(index, 1)
-    },
-    asyncOK (name) {
-      this.$refs[name].validate((valid) => {
-        if (valid) {
-          this.$Message.success('Success!')
-          this.uploadModal = false
-        } else {
-          this.$Message.error('Fail!')
-        }
-      })
     }
+    // remove (index) {
+    //   this.data6.splice(index, 1)
+    // },
+    // asyncOK (name) {
+    //   this.$refs[name].validate((valid) => {
+    //     if (valid) {
+    //       this.$Message.success('Success!')
+    //       this.uploadModal = false
+    //     } else {
+    //       this.$Message.error('Fail!')
+    //     }
+    //   })
+    // }
   }
 }
 </script>
 
 <style lang="less" scoped>
-  .upload-button-container {
-    text-align: right;
-  }
+  // .upload-button-container {
+  //   text-align: right;
+  // }
 
-  .admin-course-resource-table {
+  .user-resource-download-table {
     margin-top: 15px;
   }
 </style>
