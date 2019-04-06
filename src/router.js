@@ -12,7 +12,8 @@ import Router from 'vue-router'
 const Admin = () => import(/* webpackChunkName: "admin" */ './views/Admin/index.vue')
 const AdminHome = () => import(/* webpackChunkName: "admin-home" */ './views/Admin/Home.vue')
 const CourseResource = () => import(/* webpackChunkName: "course-resource" */ './views/Admin/CourseResource.vue')
-const ExamResource = () => import(/* webpackChunkName: "exam-resource" */ './views/Admin/ExamResource.vue')
+const ExamResource = () => import(/* webpackChunkName: "exam-resource" */ './views/Admin/ExamResource/index.vue')
+const ExamResourceDetail = () => import(/* webpackChunkName: "exam-resource-detail" */ './views/Admin/ExamResource/ExamResourceDetail.vue')
 const AnswerManage = () => import(/* webpackChunkName: "answer-manage" */ './views/Admin/AnswerManage.vue')
 const QuestionBank = () => import(/* webpackChunkName: "question-bank" */ './views/Admin/QuestionBank.vue')
 const Info = () => import(/* webpackChunkName: "info" */ './views/Admin/Info.vue')
@@ -69,6 +70,11 @@ export default new Router({
           path: 'exam-resource',
           name: 'exam-resource',
           component: ExamResource
+        },
+        {
+          path: 'exam-resource-detail/:eid',
+          name: 'exam-resource-detail',
+          component: ExamResourceDetail
         },
         {
           path: 'answer-manage',
