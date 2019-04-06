@@ -9,6 +9,20 @@
                 {{ item.title }} 
               </p>
               <p>考试时间：{{ item.time }}</p>
+              <DatePicker 
+                type="date" 
+                placeholder="Select date" 
+                style="width: 150px; margin-right: 15px" 
+                :disabled="!item.isDatePicker"
+                @on-change="(date) => {dateChange(date, item)}"
+              >
+              </DatePicker>
+              <Button v-if="!item.isDatePicker" size="small" @click.native="editDate(item)">
+                <Icon type="md-create" />
+              </Button>
+              <Button v-else size="small" @click.native="submitDate(item)">
+                <span >确定</span>
+              </Button>
               <div slot="extra">
                 <i-switch v-model="item.open" size="small" @on-change="switchExam" />
                 <Divider type="vertical" />
@@ -33,42 +47,62 @@ export default {
           title: 'The standard card 1sldkfjksdjl',
           time: '2019-4-3',
           eid: 1,
-          open: true
+          open: true,
+          isDatePicker: false
         },
         {
           title: 'The standard card 2',
           time: '2019-4-3',
           eid: 2,
-          open: false
+          open: false,
+          isDatePicker: false
         },
         {
           title: 'The standard card 3',
           time: '2019-4-3',
           eid: 3,
-          open: true
+          open: true,
+          isDatePicker: false
         },
         {
           title: 'The standard card 4',
           time: '2019-4-3',
           eid: 4,
-          open: false
+          open: false,
+          isDatePicker: false
         },
         {
           title: 'The standard card 5',
           time: '2019-4-3',
           eid: 5,
-          open: false
+          open: false,
+          isDatePicker: false
         }
       ]
     }
   },
   methods: {
-    openExamCard({ eid, title: examTitle }) {
+    openExamCard ({ eid, title: examTitle }) {
       this.$router.push({ name: 'exam-resource-detail', params: { eid, examTitle } })
     },
-    switchExam(val) {
+    switchExam (val) {
       console.log(val);
-    }
+    },
+    editDate (item) {
+      console.log('editDate');
+      item.isDatePicker = true
+    },
+    dateChange (date, item) {
+      console.log(date, item);
+      item.tmpDate = `${date}`
+    },
+    submitDate (item) {
+      console.log('submitDate');
+      item.isDatePicker = false
+      // 发请求
+      item.time = item.tmpDate
+      // 写法可优化
+    } 
   }
 }
 </script>
