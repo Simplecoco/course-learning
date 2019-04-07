@@ -303,18 +303,7 @@ export default {
   methods: {
     backToExam () {
       // this.saveAnswer()
-      this.$Modal.confirm({
-        title: '提示',
-        content: '返回后信息可能将无法保存，确认返回吗？',
-        okText: '确认',
-        cancelText: '取消',
-        onOk: () => {
-          this.$router.push({ name: 'exam-resource' })
-        },
-        onCancel: () => {
-          console.log('取消');
-        }
-      });
+      this.$router.push({ name: 'exam-resource' })
     },
     // filterMethod (value, option) {
     //   return option.toUpperCase().indexOf(value.toUpperCase()) !== -1;
