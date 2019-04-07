@@ -89,7 +89,6 @@ export default {
       console.log(val);
     },
     editDate (item) {
-      console.log('editDate');
       item.isDatePicker = true
     },
     dateChange (date, item) {
@@ -97,11 +96,12 @@ export default {
       item.tmpDate = `${date}`
     },
     submitDate (item) {
-      console.log('submitDate');
       item.isDatePicker = false
-      // 发请求
-      item.time = item.tmpDate
-      // 写法可优化
+      if (item.tmpDate) {
+        // 发请求
+        item.time = item.tmpDate
+        // 写法可优化
+      }
     } 
   }
 }
