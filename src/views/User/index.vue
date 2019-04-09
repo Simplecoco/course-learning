@@ -95,7 +95,7 @@ export default {
   }
   
   .drawer-btn {
-    box-shadow: 3px 3px 10px #dcdee2;
+    box-shadow: 3px 3px 10px #a1a3a9;
     transform: scale(1);
     transition: transform .3s;
     &:hover {
