@@ -26,31 +26,16 @@
       v-model="uploadModal"
       title="上传课程资源"
       :loading="uploadLoading"
-      @on-ok="asyncOK('uploadForm')">
-      <Form ref="uploadForm" :model="uploadForm.data" :rules="uploadForm.rule" :label-width="80">
-        <FormItem label="文件" prop="file">
-          <Upload
-            multiple
-            type="drag"
-            action="//jsonplaceholder.typicode.com/posts/">
-            <div style="padding: 20px 0">
-              <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-              <p>点击或拖动上传文件</p>
-            </div>
-          </Upload>
-        </FormItem>
-        <FormItem label="文件名" prop="name">
-          <Input v-model="uploadForm.data.name" placeholder="Enter your name"></Input>
-        </FormItem>
-        <FormItem label="描述" prop="desc">
-            <Input v-model="uploadForm.data.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
-        </FormItem>
-      </Form>
+      @on-ok="asyncOK('uploadForm')"
+    >
+      <upload-form ref="upload-form" @success="success" :isSubmitBtn="false"></upload-form>
     </Modal>
   </div>
 </template>
 
 <script>
+import HomeworkUpload from '@/components/HomeworkUpload'
+
 export default {
   data () {
     return {
@@ -144,27 +129,11 @@ export default {
         name: 'Jon Snow',
         fileType: 'jpg',
         desc: 'New York No. 1 Lake Park'
-      }],
-      uploadForm: {
-        data: {
-          file: '',
-          name: '',
-          desc: ''
-        },
-        rule: {
-          file: [
-            { required: true, message: '请上传文件', trigger: 'blur' }
-          ],
-          name: [
-            { required: true, message: '文件名不能为空', trigger: 'blur' }
-          ],
-          desc: [
-            { required: false, message: 'Please enter a personal introduction', trigger: 'blur' },
-            { type: 'string', min: 20, message: 'Introduce no less than 20 words', trigger: 'blur' }
-          ]
-        }
-      }
+      }]
     }
+  },
+  components: {
+    UploadForm: HomeworkUpload
   },
   methods: {
     show (index) {
@@ -179,15 +148,12 @@ export default {
     remove (index) {
       this.data6.splice(index, 1)
     },
-    asyncOK (name) {
-      this.$refs[name].validate((valid) => {
-        if (valid) {
-          this.$Message.success('Success!')
-          this.uploadModal = false
-        } else {
-          this.$Message.error('Fail!')
-        }
-      })
+    asyncOK () {
+      this.$refs['upload-form'].asyncOK()
+    },
+    success (data) {
+      this.uploadModal = false
+      this.data6.push(data)
     }
   }
 }

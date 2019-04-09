@@ -4,21 +4,39 @@
       <router-view/>
     </Layout>
     <div class="chat-drawer">
-      <div class="drawer-btn-con">
-        <Badge :count="drawer.unreadNum">
-          <Button class="drawer-btn"
-            @click="drawer.show = true" 
-            type="success" 
-            shape="circle"
+      <div class="drawer-btn-homework-con">
+        <Tooltip content="打开作业提交">
+          <Button 
+            @click="HomeworkDrawer.show = true"
+            class="drawer-btn"
+            type="primary" 
             size="large"
-            icon="logo-twitch"
-            style="width: 50px; height: 50px"
+            icon="md-cloud-upload"
+            style="width: 42px; height: 42px; font-size: 18px; padding: 5px"
           >
           </Button>
+        </Tooltip>
+      </div>
+      <div class="drawer-btn-con">
+        <Badge :count="drawer.unreadNum">
+          <Tooltip content="打开在线交流">
+            <Button class="drawer-btn"
+              @click="drawer.show = true" 
+              type="success" 
+              shape="circle"
+              size="large"
+              icon="logo-twitch"
+              style="width: 45px; height: 45px"
+            >
+            </Button>
+          </Tooltip>
         </Badge>
       </div>
       <Drawer title="在线交流" width="35" :closable="false" v-model="drawer.show" @on-visible-change="resetUnreadNum">
         <chat-card ref="chat-card" @recieve="setUnreadNum"></chat-card>
+      </Drawer>
+      <Drawer title="作业提交" placement="left" width="35" :closable="false" v-model="HomeworkDrawer.show">
+        <homework-upload></homework-upload>
       </Drawer>
     </div>
   </div>
@@ -28,12 +46,14 @@
 // @ is an alias to /src
 import Layout from '@/components/Layout.vue'
 import ChatCard from '@/components/ChatCard.vue'
+import HomeworkUpload from '@/components/HomeworkUpload.vue'
 
 export default {
   name: 'user',
   components: {
     Layout,
-    ChatCard
+    ChatCard,
+    HomeworkUpload
   },
   beforeRouteLeave (to, from, next) {
     // 当离开当前chat所在路由时，主动断开连接
@@ -70,6 +90,10 @@ export default {
       drawer: {
         unreadNum: 0,
         show: false
+      },
+      HomeworkDrawer: {
+        // unreadNum: 0,
+        show: false
       }
     }
   },
@@ -93,6 +117,14 @@ export default {
     bottom: 40px;
     right: 40px;
     z-index: 99;
+  }
+  
+  .drawer-btn-homework-con {
+    position: fixed;
+    bottom: 37px;
+    right: 100px;
+    z-index: 99;
+    padding: 5px;
   }
   
   .drawer-btn {
