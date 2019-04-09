@@ -51,7 +51,7 @@
           </Option>
         </Select>
         
-        <Button type="primary" icon="md-add" :style="{ marginLeft: '20px' }" @click="submitSearchResult">
+        <Button type="primary" :disabled="this.selectedArr.length === 0" icon="md-add" :style="{ marginLeft: '20px' }" @click="submitSearchResult">
           确认添加
         </Button>
         
@@ -368,7 +368,6 @@ export default {
           }
         ]
       }
-      console.log(this.uploadForm.data);
       this.uploadModal = false
     },
     handleAdd () {
