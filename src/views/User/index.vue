@@ -37,7 +37,8 @@ export default {
   },
   beforeRouteLeave (to, from, next) {
     // 当离开当前chat所在路由时，主动断开连接
-    if (from.name === 'user-home') {
+    console.log(from, to);
+    if (from.matched[0].path === '/user' && to.matched[0].path === '/admin') {
       this.$refs['chat-card'].disconnect()
     }
     next()
