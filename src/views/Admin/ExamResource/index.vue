@@ -17,18 +17,24 @@
                 @on-change="(date) => {dateChange(date, item)}"
               >
               </DatePicker>
-              <Button v-if="!item.isDatePicker" size="small" @click.native="editDate(item)">
-                <Icon type="md-create" />
-              </Button>
+              <Tooltip content="修改考试时间" v-if="!item.isDatePicker">
+                <Button size="small" @click.native="editDate(item)">
+                  <Icon type="md-create" />
+                </Button>
+              </Tooltip>
               <Button v-else size="small" @click.native="submitDate(item)">
                 <span >确定</span>
               </Button>
               <div slot="extra">
-                <i-switch v-model="item.open" size="small" @on-change="switchExam" />
+                <Tooltip content="是否开启考试">
+                  <i-switch v-model="item.open" size="small" @on-change="switchExam" />
+                </Tooltip>
                 <Divider type="vertical" />
-                <Button shape="circle" size="small" @click.native="openExamCard(item)">
-                  <Icon type="md-create" />
-                </Button>
+                <Tooltip content="编辑试题">
+                  <Button shape="circle" size="small" @click.native="openExamCard(item)">
+                    <Icon type="md-create" />
+                  </Button>
+                </Tooltip>
               </div>
             </Card>
           </Col>
