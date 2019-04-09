@@ -355,6 +355,20 @@ export default {
       })
     },
     cancelModal () {
+      this.uploadForm.data = {
+        name: '',
+        type: '',
+        desc: '',
+        index: 1,
+        items: [
+          {
+            value: '',
+            index: 1,
+            status: 1
+          }
+        ]
+      }
+      console.log(this.uploadForm.data);
       this.uploadModal = false
     },
     handleAdd () {
