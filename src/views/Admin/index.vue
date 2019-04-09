@@ -39,14 +39,14 @@ export default {
               name: 'exam-resource'
             },
             {
-              text: '试卷管理',
-              icon: 'md-pulse',
-              name: 'answer-manage'
-            },
-            {
               text: '题库管理',
               icon: 'md-albums',
               name: 'question-bank'
+            },
+            {
+              text: '试卷管理',
+              icon: 'md-pulse',
+              name: 'answer-manage'
             }
           ]
         },

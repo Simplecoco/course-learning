@@ -8,7 +8,7 @@
         </Button>
       </div>
       <div class="admin-info-table">
-        <Table border :columns="columns12" :data="data6">
+        <Table :columns="columns12" :data="data6" stripe>
           <template slot-scope="{ row }" slot="name">
             <strong>{{ row.name }}</strong>
           </template>

@@ -49,11 +49,11 @@ export default {
       // uploadModal: false,
       // uploadLoading: true,
       columns12: [{
-        title: '标题',
+        title: '姓名',
         slot: 'name'
       },
       {
-        title: '内容',
+        title: '学号',
         key: 'desc'
       },
       {
@@ -64,19 +64,19 @@ export default {
       }],
       data6: [{
         name: 'John Brown',
-        desc: 'New York No. 1 Lake Park'
+        desc: '123214342'
       },
       {
         name: 'Jim Green',
-        desc: 'New York No. 1 Lake Park'
+        desc: '234234324'
       },
       {
         name: 'Joe Black',
-        desc: 'New York No. 1 Lake Park'
+        desc: '23565465465'
       },
       {
         name: 'Jon Snow',
-        desc: 'New York No. 1 Lake Park'
+        desc: '893475843345'
       }]
       // uploadForm: {
       //   data: {

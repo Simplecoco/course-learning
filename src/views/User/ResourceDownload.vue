@@ -11,7 +11,7 @@
         </Button>
       </div> -->
       <div class="user-resource-download-table">
-        <Table border :columns="columns12" :data="data6">
+        <Table border :columns="columns12" :data="data6" stripe>
           <template slot-scope="{ row }" slot="name">
             <strong>{{ row.name }}</strong>
           </template>

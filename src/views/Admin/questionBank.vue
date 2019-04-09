@@ -10,7 +10,7 @@
       </div>
       
       <div class="admin-question-bank-table">
-        <Table border :columns="questionsColumn" :data="questionsData">
+        <Table :columns="questionsColumn" :data="questionsData" stripe size="small">
           <template slot-scope="{ row }" slot="name">
             <strong>{{ row.name }}</strong>
           </template>
@@ -81,12 +81,26 @@
 </template>
 
 <script>
+import ExpandRow from '@/components/ExpandRow.vue'
+
 export default {
   data () {
     return {
       uploadModal: false,
       uploadLoading: true,
-      questionsColumn: [{
+      questionsColumn: [
+      {
+        type: 'expand',
+        width: 30,
+        render: (h, params) => {
+          return h(ExpandRow, {
+            props: {
+              row: params.row
+            }
+          })
+        }
+      },
+      {
         title: '题目',
         slot: 'name'
       },
@@ -169,6 +183,7 @@ export default {
       }
     }
   },
+  components: { ExpandRow },
   methods: {
     show (index) {
       this.$Modal.info({
