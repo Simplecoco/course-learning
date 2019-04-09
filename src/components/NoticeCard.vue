@@ -1,11 +1,7 @@
 <template>
   <div class="notice-card">
     <Card style="max-height: 100%; overflow: scroll">
-      <!-- <Divider orientation="left">
-        <Icon size="25" type="md-list-box" style="vertical-align: top" color="#2d8cf0" />
-        公告 & 信息
-      </Divider> -->
-      <p slot="title" class="notice-container-title">
+      <p slot="title" class="container-card-title">
           <Icon type="md-list-box" size='20'></Icon>
           公告 & 信息
       </p>
@@ -171,10 +167,10 @@ export default {
     width: 100%;
   }
 
-  .notice-container-title {
-    text-align: left;
-    font-size: 15px;
-  }
+  // .notice-container-title {
+  //   text-align: left;
+  //   font-size: 15px;
+  // }
     
   .notice-li {
     position: relative;

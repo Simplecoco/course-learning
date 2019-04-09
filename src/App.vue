@@ -32,4 +32,9 @@ export default {
 .content-container {
   padding: 15px;
 }
+
+.container-card-title {
+  text-align: left;
+  font-size: 15px;
+}
 </style>

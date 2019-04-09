@@ -1,23 +1,27 @@
 <template lang="html">
   <div class="admin-question-bank content-container">
-    <div class="upload-button-container">
-      <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true">
-        添加题目
-      </Button>
-    </div>
     
-    <div class="admin-question-bank-table">
-      <Table border :columns="questionsColumn" :data="questionsData">
-        <template slot-scope="{ row }" slot="name">
-          <strong>{{ row.name }}</strong>
-        </template>
-        <template slot-scope="{ row, index }" slot="action">
-          <!-- <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">查看</Button> -->
-          <Button type="primary" size="small" style="margin-right: 5px" @click="edit(index)">编辑</Button>
-          <Button type="error" size="small" @click="remove(index)">删除</Button>
-        </template>
-      </Table>
-    </div>
+    <Card dis-hover>
+      <p slot="title" class="container-card-title"><Icon type="md-albums" size="20"/> 题库管理</p>
+      <div class="upload-button-container">
+        <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true">
+          添加题目
+        </Button>
+      </div>
+      
+      <div class="admin-question-bank-table">
+        <Table border :columns="questionsColumn" :data="questionsData">
+          <template slot-scope="{ row }" slot="name">
+            <strong>{{ row.name }}</strong>
+          </template>
+          <template slot-scope="{ row, index }" slot="action">
+            <!-- <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">查看</Button> -->
+            <Button type="primary" size="small" style="margin-right: 5px" @click="edit(index)">编辑</Button>
+            <Button type="error" size="small" @click="remove(index)">删除</Button>
+          </template>
+        </Table>
+      </div>
+    </Card>
     
     <Modal
       :value="uploadModal"

@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="admin-exam-resource content-container">
       <Card dis-hover>
-        <p slot="title" class="exam-title"><Icon type="md-paper" size="20"/> 课程测验管理</p>
+        <p slot="title" class="exam-title"><Icon type="md-create" size="20"/> 课程测验管理</p>
         <Row :gutter="15">
           <Col span="8" v-for="item in cards" :key="item.eid">
             <Card class="exam-card">

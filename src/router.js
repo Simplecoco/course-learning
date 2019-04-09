@@ -54,7 +54,7 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       component: Admin,
-      redirect: '/admin/admin-home',
+      redirect: '/admin/course-resource',
       children: [
         {
           path: 'admin-home',

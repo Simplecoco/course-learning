@@ -18,11 +18,11 @@ export default {
   data () {
     return {
       menuItems: [
-        {
-          text: 'Home',
-          icon: 'md-home',
-          name: 'admin-home'
-        },
+        // {
+        //   text: 'Home',
+        //   icon: 'md-home',
+        //   name: 'admin-home'
+        // },
         {
           text: '资源管理',
           icon: 'md-cube',

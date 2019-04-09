@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="user-exam content-container">
       <Card dis-hover>
-        <p slot="title" class="exam-title"><Icon type="md-paper" size="20"/> 课程测验</p>
+        <p slot="title" class="container-card-title"><Icon type="md-paper" size="20"/> 课程测验</p>
         <Row :gutter="15">
           <Col span="8" v-for="item in cards" :key="item.eid">
             <Card class="exam-card" @click.native="openExamCard(item)">
@@ -56,10 +56,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .exam-title {
-    text-align: left;
-    font-size: 15px;
-  }
+  // .exam-title {
+  //   text-align: left;
+  //   font-size: 15px;
+  // }
   
   .exam-card {
     cursor: pointer;
