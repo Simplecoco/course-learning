@@ -227,7 +227,6 @@ export default {
           }
         ]
       }
-      console.log(this.uploadForm.data);
       this.uploadModal = false
     },
     handleAdd () {
