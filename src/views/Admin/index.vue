@@ -72,7 +72,7 @@ export default {
               name: 'question-bank'
             },
             {
-              text: '试卷管理',
+              text: '作业&试卷管理',
               icon: 'md-pulse',
               name: 'answer-manage'
             }
