@@ -1,6 +1,6 @@
 <template>
   <div class="admin">
-    <Layout :menuItems="menuItems">
+    <Layout :menuItems="menuItems" :userName="this.userName">
       <router-view/>
     </Layout>
     <div class="chat-drawer">
@@ -45,6 +45,7 @@ export default {
   }, 
   data () {
     return {
+      userName: '',
       menuItems: [
         // {
         //   text: 'Home',
@@ -94,6 +95,9 @@ export default {
         show: false
       }
     }
+  },
+  mounted () {
+    this.userName = this.$route.query.user
   },
   methods: {
     setUnreadNum () {
