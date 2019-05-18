@@ -111,41 +111,7 @@ export default {
         width: 180,
         align: 'center'
       }],
-      data6: [{
-        name: '微积分讲义',
-        fileType: 'pdf',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: '线性代数讲义',
-        fileType: 'ppt',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: '电子集成电路讲义',
-        fileType: 'pptx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jim Green',
-        fileType: 'pptx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Joe Black',
-        fileType: 'doc',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Joe Black',
-        fileType: 'docx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jon Snow',
-        fileType: 'jpg',
-        desc: 'New York No. 1 Lake Park'
-      }]
+      data6: []
       // uploadForm: {
       //   data: {
       //     file: '',
@@ -167,7 +133,25 @@ export default {
       // }
     }
   },
+  mounted () {
+    this.getResources()
+  },
   methods: {
+    getResources () {
+      this.$http.get('/all/resource/list').then((res) => {
+        console.log(res);
+        if (res.code === 0) {
+          console.log(res);
+          this.data6 = res.data.map((item) => {
+            const { name, date, uri, files, desc } = item
+            const tmpArr = files[0].url.split('.')
+            const fileType = tmpArr[tmpArr.length - 1]
+            const downloadUrl = files[0].url
+            return { name, date, uri, files, desc, fileType, downloadUrl }
+          })
+        }
+      })
+    },
     show (index) {
       this.$Modal.info({
         title: 'User Info',
@@ -177,8 +161,9 @@ export default {
     download (index) {
       console.log('下载')
       let aTag = document.createElement('a')
+      aTag.target="_blank"
       aTag.download = this.data6[index].name
-      aTag.href = "/Simplecoco/course-learning/archive/master.zip"
+      aTag.href = this.data6[index].downloadUrl
       aTag.click()
     }
     // remove (index) {

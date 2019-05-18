@@ -93,6 +93,7 @@ export default {
               uri: Date.now(),
               name: this.uploadForm.data.name,
               content: this.uploadForm.data.desc,
+              desc: this.uploadForm.data.desc,
               files: filesArr
             }
           }).then((res) => {

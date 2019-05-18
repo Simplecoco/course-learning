@@ -23,12 +23,23 @@
     </Card>
   
     <Modal
-      v-model="uploadModal"
+      :value="uploadModal"
       title="上传课程资源"
-      :loading="uploadLoading"
-      @on-ok="asyncOK('uploadForm')"
+      :closable="false"
+      :mask-closable="false"
     >
-      <upload-form ref="upload-form" @success="success" :isSubmitBtn="false" notice="信息提交成功"></upload-form>
+      <upload-form 
+        ref="upload-form" 
+        @success="success" 
+        :isSubmitBtn="false" 
+        notice="信息提交成功"
+        submitUrl="/admin/resource/submit" 
+      >
+      </upload-form>
+      <template slot="footer">
+        <Button type="default" style="margin-right: 5px" @click="cancelModal">取消</Button>
+        <Button type="primary" @click="asyncOK('uploadForm')">确定</Button>
+      </template>
     </Modal>
   </div>
 </template>
@@ -95,47 +106,31 @@ export default {
         width: 180,
         align: 'center'
       }],
-      data6: [{
-        name: 'John Brown',
-        fileType: 'pdf',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jim Green',
-        fileType: 'ppt',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jim Green',
-        fileType: 'pptx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jim Green',
-        fileType: 'pptx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Joe Black',
-        fileType: 'doc',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Joe Black',
-        fileType: 'docx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jon Snow',
-        fileType: 'jpg',
-        desc: 'New York No. 1 Lake Park'
-      }]
+      data6: []
     }
   },
   components: {
     UploadForm: HomeworkUpload
   },
+  mounted () {
+    this.getResources()
+  },
   methods: {
+    getResources () {
+      this.$http.get('/all/resource/list').then((res) => {
+        console.log(res);
+        if (res.code === 0) {
+          console.log(res);
+          this.data6 = res.data.map((item) => {
+            const { name, date, uri, files, desc } = item
+            const tmpArr = files[0].url.split('.')
+            const fileType = tmpArr[tmpArr.length - 1]
+            const downloadUrl = files[0].url
+            return { name, date, uri, files, desc, fileType, downloadUrl }
+          })
+        }
+      })
+    },
     show (index) {
       this.$Modal.info({
         title: 'User Info',
@@ -145,9 +140,13 @@ export default {
     download (index) {
       console.log('下载')
       let aTag = document.createElement('a')
+      aTag.target="_blank"
       aTag.download = this.data6[index].name
-      aTag.href = "/Simplecoco/course-learning/archive/master.zip"
+      aTag.href = this.data6[index].downloadUrl
       aTag.click()
+    },
+    cancelModal () {
+      this.uploadModal = false
     },
     remove (index) {
       this.data6.splice(index, 1)
