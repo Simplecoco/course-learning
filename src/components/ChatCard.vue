@@ -53,6 +53,15 @@ export default {
         vm.currentUser = loginUser
       })
       
+      this.socket.on('user connected', (loginUser) => {
+        console.log(loginUser, 'user connected');
+        this.$Message.info({
+          content: `${loginUser.userName}进入了聊天室`,
+          duration: 2,
+          closable: true
+        });
+      })
+      
       this.socket.on('chat message', function (record) {
         console.log("chat message");
         vm.chattingRecords.push({
