@@ -4,7 +4,7 @@
     <Card dis-hover>
       <p slot="title" class="container-card-title"><Icon type="md-albums" size="20"/> 题库管理</p>
       <div class="upload-button-container">
-        <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true">
+        <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true; uploadForm.action = 'create'">
           添加题目
         </Button>
       </div>
@@ -43,12 +43,11 @@
         
         <FormItem
           v-for="(item, index) in uploadForm.data.items"
-          v-if="item.status"
+          v-if="item.status && (uploadForm.data.type === 'single' || uploadForm.data.type === 'multiple')"
           :key="index"
           :label="'选项 ' + item.index"
           :prop="`items.${index}.value`"
           :rules="{required: true, message: 'Item ' + item.index +' can not be empty', trigger: 'blur'}"
-          v-show="uploadForm.data.type === 'single' || uploadForm.data.type === 'multiple'"
         >
           <Row>
             <Col span="18">
@@ -60,7 +59,7 @@
           </Row>
         </FormItem>
         
-        <FormItem v-show="uploadForm.data.type === 'single' || uploadForm.data.type === 'multiple'">
+        <FormItem v-if="uploadForm.data.type === 'single' || uploadForm.data.type === 'multiple'">
           <Row>
             <Col span="12">
               <Button type="dashed" long @click="handleAdd" icon="md-add">Add item</Button>
@@ -145,6 +144,7 @@ export default {
         desc: 'New York No. 1 Lake Park'
       }],
       uploadForm: {
+        action: 'create',
         data: {
           name: '',
           type: '',
@@ -197,6 +197,7 @@ export default {
     edit (index) {
       console.log(this.questionsData[index].type);
       this.uploadModal = true
+      this.uploadForm.action = 'edit'
       const optionItems = (this.questionsData[index].type === 'single' || this.questionsData[index].type === 'multiple') ? this.questionsData[index].options.map((item, i) => {
         return {
           value: item,
@@ -212,6 +213,9 @@ export default {
         index: 1,
         items: optionItems
       })
+      
+      // 记录正在编辑的index，提交时方便修改
+      this.uploadForm.curIndex = index
     },
     cancelModal () {
       this.uploadForm.data = {
@@ -244,6 +248,31 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           console.log(this.uploadForm.data);
+          
+          const options = this.uploadForm.data.items.map((item) => {
+            return item.value
+          })
+          const qid = this.questionsData.length + 2
+          const { name, type, desc } = this.uploadForm.data
+          
+          if (this.uploadForm.action === 'create') {
+            if (type === 'single' || type === 'multiple') {
+              this.questionsData.push({ name, qid, type, options, desc })
+            } else if (type === 'essay') {
+              this.questionsData.push({ name, qid, type, desc })
+            }
+          } else if (this.uploadForm.action === 'edit') {
+            console.log('edit-form');            
+            if (type === 'single' || type === 'multiple') {
+              console.log('edit-s-m');
+              // 更改数组不能直接索引赋值，否则vue监测不到变化
+              this.questionsData.splice(this.uploadForm.curIndex, 1, { name, qid, type, options, desc })
+            } else if (type === 'essay') {
+              console.log('edit-essay');
+              this.questionsData.splice(this.uploadForm.curIndex, 1, { name, qid, type, desc })
+            }
+          }
+          
           this.$Message.success('Success!')
           this.uploadModal = false
           this.uploadForm.data = Object.assign({}, this.uploadForm.data, {

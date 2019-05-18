@@ -28,7 +28,7 @@
       :loading="uploadLoading"
       @on-ok="asyncOK('uploadForm')"
     >
-      <upload-form ref="upload-form" @success="success" :isSubmitBtn="false"></upload-form>
+      <upload-form ref="upload-form" @success="success" :isSubmitBtn="false" notice="信息提交成功"></upload-form>
     </Modal>
   </div>
 </template>
@@ -139,11 +139,15 @@ export default {
     show (index) {
       this.$Modal.info({
         title: 'User Info',
-        content: `Name：${this.data6[index].name}<br>Description：${this.data6[index].desc}`
+        content: `名称：${this.data6[index].name}<br>描述：${this.data6[index].desc}<br>类型：${this.data6[index].fileType}`
       })
     },
     download (index) {
       console.log('下载')
+      let aTag = document.createElement('a')
+      aTag.download = this.data6[index].name
+      aTag.href = "/Simplecoco/course-learning/archive/master.zip"
+      aTag.click()
     },
     remove (index) {
       this.data6.splice(index, 1)

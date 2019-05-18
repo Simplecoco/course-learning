@@ -36,7 +36,7 @@
         <chat-card ref="chat-card" @recieve="setUnreadNum"></chat-card>
       </Drawer>
       <Drawer title="作业提交" placement="left" width="35" :closable="false" v-model="HomeworkDrawer.show">
-        <homework-upload></homework-upload>
+        <homework-upload @success="submitHomeworkSuccess" submitUrl="/user/submitproject"></homework-upload>
       </Drawer>
     </div>
   </div>
@@ -111,6 +111,9 @@ export default {
       if (val === true && this.drawer.unreadNum !== 0) {
         this.drawer.unreadNum = 0
       }
+    },
+    submitHomeworkSuccess (data) {
+      this.HomeworkDrawer.show = false
     }
   }
 }

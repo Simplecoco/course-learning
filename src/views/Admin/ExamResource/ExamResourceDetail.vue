@@ -45,13 +45,14 @@
           remote
           :remote-method="remoteMethod"
           :loading="selectLoading"
+          @on-open-change="selectOpenChange"
         >
           <Option v-for="(option, index) in options2" :value="option.value" :key="index">
             {{option.label}}
           </Option>
         </Select>
         
-        <Button type="primary" :disabled="this.selectedArr.length === 0" icon="md-add" :style="{ marginLeft: '20px' }" @click="submitSearchResult">
+        <Button type="primary" :disabled="this.selectedArr.length === 0" icon="md-add" :style="{ marginLeft: '20px' }" @click.native="submitSearchResult">
           确认添加
         </Button>
         
@@ -328,9 +329,28 @@ export default {
         this.options2 = [];
       }
     },
+    
+    selectOpenChange (val) {
+      if (!val && this.selectedArr.length !== 0) {
+        this.submitSearchResult()
+      }
+    },
+    
     submitSearchResult () {
       console.log('submitSearchResult');
       console.log(this.selectedArr);
+      
+      this.selectedArr.forEach((item, index) => {
+        console.log(this.questionsData);
+        this.questionsData.push({
+          id: this.questionsData.length + 1,
+          type: 'essay',
+          title: item,
+          status: false,
+          answer: ''
+        })
+      })
+      this.selectedArr = []
     },
     remove (index) {
       this.questionsData.splice(index, 1)

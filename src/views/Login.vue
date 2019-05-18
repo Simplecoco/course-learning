@@ -81,9 +81,13 @@ export default {
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success!')
+          // this.$Message.success('Success!')
           // const user = this.form
           setTimeout(() => {
+            this.$Notice.info({
+              title: '欢迎来到课程管理系统',
+              desc: `求是求真，大气大为~`
+            })
             if (this.tabValue === 'user') {
               console.log('ss');
               this.$router.push({ name: 'user', query: { user: this.formInline.user } })

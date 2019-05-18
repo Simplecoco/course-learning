@@ -171,11 +171,15 @@ export default {
     show (index) {
       this.$Modal.info({
         title: 'User Info',
-        content: `Name：${this.data6[index].name}<br>Description：${this.data6[index].desc}`
+        content: `Name：${this.data6[index].name}<br>Description：${this.data6[index].desc}<br>类型：${this.data6[index].fileType}`
       })
     },
     download (index) {
       console.log('下载')
+      let aTag = document.createElement('a')
+      aTag.download = this.data6[index].name
+      aTag.href = "/Simplecoco/course-learning/archive/master.zip"
+      aTag.click()
     }
     // remove (index) {
     //   this.data6.splice(index, 1)

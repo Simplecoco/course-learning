@@ -20,17 +20,17 @@ export default {
     return {
       cards: [
         {
-          title: 'The standard card 1',
+          title: 'xxxx测验 1',
           time: '2019-4-3',
           eid: 1
         },
         {
-          title: 'The standard card 2',
+          title: 'xxxxx测验 2',
           time: '2019-4-3',
           eid: 2
         },
         {
-          title: 'The standard card 3',
+          title: 'xxxx测验 3',
           time: '2019-4-3',
           eid: 3
         },

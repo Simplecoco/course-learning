@@ -50,28 +50,28 @@ export default {
       switch1: false,
       cards: [
         {
-          title: 'The standard card 1sldkfjksdjl',
+          title: 'xxxx测验 1',
           time: '2019-4-3',
           eid: 1,
           open: true,
           isDatePicker: false
         },
         {
-          title: 'The standard card 2',
+          title: 'xxxxx测验 2',
           time: '2019-4-3',
           eid: 2,
           open: false,
           isDatePicker: false
         },
         {
-          title: 'The standard card 3',
+          title: 'xxxxx测验 3',
           time: '2019-4-3',
           eid: 3,
           open: true,
           isDatePicker: false
         },
         {
-          title: 'The standard card 4',
+          title: 'The standard card 4哇哇哇哇哇',
           time: '2019-4-3',
           eid: 4,
           open: false,

@@ -224,6 +224,12 @@ export default {
         cancelText: '取消',
         onOk: () => {
           console.log(this.questions)
+          this.$emit('submitAnswer', this.questions)
+          this.$Notice.success({
+            title: '测验提交成功',
+            desc: '可以休息一会儿啦~'
+          })
+          this.$router.push({ name: 'exam' })
         },
         onCancel: () => {
           console.log('取消');
