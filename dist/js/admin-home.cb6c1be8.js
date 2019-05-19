@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["admin-home"],{"2e37":function(n,e,t){"use strict";var a=t("3e35"),i=t.n(a);i.a},"3e35":function(n,e,t){},4022:function(n,e,t){"use strict";t.r(e);var a=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",{staticClass:"admin-home content-container"},[n._v("\n  admin-home\n")])},i=[],o={data:function(){return{}}},c=o,s=(t("2e37"),t("2877")),u=Object(s["a"])(c,a,i,!1,null,"6f50a29e",null);u.options.__file="Home.vue";e["default"]=u.exports}}]);
+//# sourceMappingURL=admin-home.cb6c1be8.js.map
