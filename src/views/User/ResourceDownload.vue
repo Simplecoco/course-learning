@@ -1,22 +1,28 @@
 <template lang="html">
   <div class="user-resource-download content-container">
-    <!-- <div class="upload-button-container">
-      <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true">
-        上传资源
-      </Button>
-    </div> -->
-    <div class="user-resource-download-table">
-      <Table border :columns="columns12" :data="data6">
-        <template slot-scope="{ row }" slot="name">
-          <strong>{{ row.name }}</strong>
-        </template>
-        <template slot-scope="{ row, index }" slot="action">
-          <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">查看</Button>
-          <Button type="default" size="small" style="margin-right: 5px" @click="download(index)">下载</Button>
-          <!-- <Button type="error" size="small" @click="remove(index)">删除</Button> -->
-        </template>
-      </Table>
-    </div>
+    <Card dis-hover>
+      <p slot="title" class="container-card-title">
+          <Icon type="ios-cloud-download-outline" size='20'/>
+          资源下载
+      </p>
+      <!-- <div class="upload-button-container">
+        <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true">
+          上传资源
+        </Button>
+      </div> -->
+      <div class="user-resource-download-table">
+        <Table border :columns="columns12" :data="data6" stripe>
+          <template slot-scope="{ row }" slot="name">
+            <strong>{{ row.name }}</strong>
+          </template>
+          <template slot-scope="{ row, index }" slot="action">
+            <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">查看</Button>
+            <Button type="default" size="small" style="margin-right: 5px" @click="download(index)">下载</Button>
+            <!-- <Button type="error" size="small" @click="remove(index)">删除</Button> -->
+          </template>
+        </Table>
+      </div>
+    </Card>
     <!-- <Modal
       v-model="uploadModal"
       title="上传课程资源"
@@ -105,41 +111,7 @@ export default {
         width: 180,
         align: 'center'
       }],
-      data6: [{
-        name: '微积分讲义',
-        fileType: 'pdf',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: '线性代数讲义',
-        fileType: 'ppt',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: '电子集成电路讲义',
-        fileType: 'pptx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jim Green',
-        fileType: 'pptx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Joe Black',
-        fileType: 'doc',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Joe Black',
-        fileType: 'docx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jon Snow',
-        fileType: 'jpg',
-        desc: 'New York No. 1 Lake Park'
-      }]
+      data6: []
       // uploadForm: {
       //   data: {
       //     file: '',
@@ -161,15 +133,38 @@ export default {
       // }
     }
   },
+  mounted () {
+    this.getResources()
+  },
   methods: {
+    getResources () {
+      this.$http.get('/all/resource/list').then((res) => {
+        console.log(res);
+        if (res.code === 0) {
+          console.log(res);
+          this.data6 = res.data.map((item) => {
+            const { name, date, uri, files, desc } = item
+            const tmpArr = files[0].url.split('.')
+            const fileType = tmpArr[tmpArr.length - 1]
+            const downloadUrl = files[0].url
+            return { name, date, uri, files, desc, fileType, downloadUrl }
+          })
+        }
+      })
+    },
     show (index) {
       this.$Modal.info({
         title: 'User Info',
-        content: `Name：${this.data6[index].name}<br>Description：${this.data6[index].desc}`
+        content: `Name：${this.data6[index].name}<br>Description：${this.data6[index].desc}<br>类型：${this.data6[index].fileType}`
       })
     },
     download (index) {
       console.log('下载')
+      let aTag = document.createElement('a')
+      aTag.target="_blank"
+      aTag.download = this.data6[index].name
+      aTag.href = this.data6[index].downloadUrl
+      aTag.click()
     }
     // remove (index) {
     //   this.data6.splice(index, 1)

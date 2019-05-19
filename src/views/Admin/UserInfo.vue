@@ -1,21 +1,25 @@
 <template lang="html">
   <div class="admin-user-info content-container">
-    <!-- <div class="upload-button-container">
-      <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true">
-        发布公告
-      </Button>
-    </div> -->
-    <div class="admin-user-info-table">
-      <Table border :columns="columns12" :data="data6">
-        <template slot-scope="{ row }" slot="name">
-          <strong>{{ row.name }}</strong>
-        </template>
-        <template slot-scope="{ row, index }" slot="action">
-          <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">查看</Button>
-          <Button type="error" size="small" @click="remove(index)">删除</Button>
-        </template>
-      </Table>
-    </div>
+    
+    <Card dis-hover>
+      <p slot="title" class="container-card-title"><Icon type="md-people" size="20"/> 用户管理</p>
+      <!-- <div class="upload-button-container">
+        <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true">
+          发布公告
+        </Button>
+      </div> -->
+      <div class="admin-user-info-table">
+        <Table border :columns="columns12" :data="data6">
+          <template slot-scope="{ row }" slot="name">
+            <strong>{{ row.name }}</strong>
+          </template>
+          <template slot-scope="{ row, index }" slot="action">
+            <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">查看</Button>
+            <Button type="error" size="small" @click="remove(index)">删除</Button>
+          </template>
+        </Table>
+      </div>
+    </Card>
     <!-- <Modal
       :value="uploadModal"
       title="发布公告"
@@ -45,11 +49,11 @@ export default {
       // uploadModal: false,
       // uploadLoading: true,
       columns12: [{
-        title: '标题',
+        title: '姓名',
         slot: 'name'
       },
       {
-        title: '内容',
+        title: '学号',
         key: 'desc'
       },
       {
@@ -60,19 +64,19 @@ export default {
       }],
       data6: [{
         name: 'John Brown',
-        desc: 'New York No. 1 Lake Park'
+        desc: '123214342'
       },
       {
         name: 'Jim Green',
-        desc: 'New York No. 1 Lake Park'
+        desc: '234234324'
       },
       {
         name: 'Joe Black',
-        desc: 'New York No. 1 Lake Park'
+        desc: '23565465465'
       },
       {
         name: 'Jon Snow',
-        desc: 'New York No. 1 Lake Park'
+        desc: '893475843345'
       }]
       // uploadForm: {
       //   data: {

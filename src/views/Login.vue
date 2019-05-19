@@ -10,8 +10,8 @@
               课程学习系统
             </h2>
           </FormItem>
-          <Tabs>
-              <TabPane label="用户登录">
+          <Tabs v-model="tabValue">
+              <TabPane label="用户登录" name="user">
                 <FormItem prop="user">
                   <Input type="text" v-model="formInline.user" placeholder="用户名">
                   <Icon type="ios-person-outline" slot="prepend"></Icon>
@@ -23,7 +23,7 @@
                   </Input>
                 </FormItem>
               </TabPane>
-              <TabPane label="管理员登录" :style="{ marginLeft: '1px' }">
+              <TabPane label="管理员登录" name="admin" :style="{ marginLeft: '1px' }">
                 <FormItem prop="user">
                   <Input type="text" v-model="formInline.user" placeholder="用户名">
                   <Icon type="ios-person-outline" slot="prepend"></Icon>
@@ -50,6 +50,7 @@
 export default {
   data () {
     return {
+      tabValue: 'user',
       formInline: {
         user: '',
         password: ''
@@ -80,7 +81,20 @@ export default {
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success!')
+          // this.$Message.success('Success!')
+          // const user = this.form
+          setTimeout(() => {
+            this.$Notice.info({
+              title: '欢迎来到课程管理系统',
+              desc: `求是求真，大气大为~`
+            })
+            if (this.tabValue === 'user') {
+              console.log('ss');
+              this.$router.push({ name: 'user', query: { user: this.formInline.user } })
+            } else {
+              this.$router.push({ name: 'admin', query: { user: this.formInline.user } })
+            }
+          }, 1000)
         } else {
           this.$Message.error('Fail!')
         }

@@ -1,51 +1,52 @@
 <template lang="html">
   <div class="admin-course-resource content-container">
-    <div class="upload-button-container">
-      <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true">
-        上传资源
-      </Button>
-    </div>
-    <div class="admin-course-resource-table">
-      <Table border :columns="columns12" :data="data6">
-        <template slot-scope="{ row }" slot="name">
-          <strong>{{ row.name }}</strong>
-        </template>
-        <template slot-scope="{ row, index }" slot="action">
-          <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">查看</Button>
-          <Button type="default" size="small" style="margin-right: 5px" @click="download(index)">下载</Button>
-          <Button type="error" size="small" @click="remove(index)">删除</Button>
-        </template>
-      </Table>
-    </div>
+    
+    <Card dis-hover>
+      <p slot="title" class="container-card-title"><Icon type="md-book" size="20"/> 课程资源管理</p>
+      <div class="upload-button-container">
+        <Button size="large" icon="md-cloud-upload" type="primary" :style="{ marginRight: '20px' }" @click="uploadModal = true">
+          上传资源
+        </Button>
+      </div>
+      <div class="admin-course-resource-table">
+        <Table border :columns="columns12" :data="data6">
+          <template slot-scope="{ row }" slot="name">
+            <strong>{{ row.name }}</strong>
+          </template>
+          <template slot-scope="{ row, index }" slot="action">
+            <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">查看</Button>
+            <Button type="default" size="small" style="margin-right: 5px" @click="download(index)">下载</Button>
+            <Button type="error" size="small" @click="remove(index)">删除</Button>
+          </template>
+        </Table>
+      </div>
+    </Card>
+  
     <Modal
-      v-model="uploadModal"
+      :value="uploadModal"
       title="上传课程资源"
-      :loading="uploadLoading"
-      @on-ok="asyncOK('uploadForm')">
-      <Form ref="uploadForm" :model="uploadForm.data" :rules="uploadForm.rule" :label-width="80">
-        <FormItem label="文件" prop="file">
-          <Upload
-            multiple
-            type="drag"
-            action="//jsonplaceholder.typicode.com/posts/">
-            <div style="padding: 20px 0">
-              <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-              <p>点击或拖动上传文件</p>
-            </div>
-          </Upload>
-        </FormItem>
-        <FormItem label="文件名" prop="name">
-          <Input v-model="uploadForm.data.name" placeholder="Enter your name"></Input>
-        </FormItem>
-        <FormItem label="描述" prop="desc">
-            <Input v-model="uploadForm.data.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
-        </FormItem>
-      </Form>
+      :closable="false"
+      :mask-closable="false"
+    >
+      <upload-form 
+        ref="upload-form" 
+        @success="success" 
+        :isSubmitBtn="false" 
+        notice="信息提交成功"
+        submitUrl="/admin/resource/submit" 
+      >
+      </upload-form>
+      <template slot="footer">
+        <Button type="default" style="margin-right: 5px" @click="cancelModal">取消</Button>
+        <Button type="primary" @click="asyncOK('uploadForm')">确定</Button>
+      </template>
     </Modal>
   </div>
 </template>
 
 <script>
+import HomeworkUpload from '@/components/HomeworkUpload'
+
 export default {
   data () {
     return {
@@ -105,84 +106,57 @@ export default {
         width: 180,
         align: 'center'
       }],
-      data6: [{
-        name: 'John Brown',
-        fileType: 'pdf',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jim Green',
-        fileType: 'ppt',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jim Green',
-        fileType: 'pptx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jim Green',
-        fileType: 'pptx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Joe Black',
-        fileType: 'doc',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Joe Black',
-        fileType: 'docx',
-        desc: 'New York No. 1 Lake Park'
-      },
-      {
-        name: 'Jon Snow',
-        fileType: 'jpg',
-        desc: 'New York No. 1 Lake Park'
-      }],
-      uploadForm: {
-        data: {
-          file: '',
-          name: '',
-          desc: ''
-        },
-        rule: {
-          file: [
-            { required: true, message: '请上传文件', trigger: 'blur' }
-          ],
-          name: [
-            { required: true, message: '文件名不能为空', trigger: 'blur' }
-          ],
-          desc: [
-            { required: false, message: 'Please enter a personal introduction', trigger: 'blur' },
-            { type: 'string', min: 20, message: 'Introduce no less than 20 words', trigger: 'blur' }
-          ]
-        }
-      }
+      data6: []
     }
   },
+  components: {
+    UploadForm: HomeworkUpload
+  },
+  mounted () {
+    this.getResources()
+  },
   methods: {
+    getResources () {
+      this.$http.get('/all/resource/list').then((res) => {
+        console.log(res);
+        if (res.code === 0) {
+          console.log(res);
+          this.data6 = res.data.map((item) => {
+            const { name, date, uri, files, desc } = item
+            const tmpArr = files[0].url.split('.')
+            const fileType = tmpArr[tmpArr.length - 1]
+            const downloadUrl = files[0].url
+            return { name, date, uri, files, desc, fileType, downloadUrl }
+          })
+        }
+      })
+    },
     show (index) {
       this.$Modal.info({
         title: 'User Info',
-        content: `Name：${this.data6[index].name}<br>Description：${this.data6[index].desc}`
+        content: `名称：${this.data6[index].name}<br>描述：${this.data6[index].desc}<br>类型：${this.data6[index].fileType}`
       })
     },
     download (index) {
       console.log('下载')
+      let aTag = document.createElement('a')
+      aTag.target="_blank"
+      aTag.download = this.data6[index].name
+      aTag.href = this.data6[index].downloadUrl
+      aTag.click()
+    },
+    cancelModal () {
+      this.uploadModal = false
     },
     remove (index) {
       this.data6.splice(index, 1)
     },
-    asyncOK (name) {
-      this.$refs[name].validate((valid) => {
-        if (valid) {
-          this.$Message.success('Success!')
-          this.uploadModal = false
-        } else {
-          this.$Message.error('Fail!')
-        }
-      })
+    asyncOK () {
+      this.$refs['upload-form'].asyncOK()
+    },
+    success (data) {
+      this.uploadModal = false
+      this.data6.push(data)
     }
   }
 }

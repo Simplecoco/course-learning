@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="admin-exam-resource content-container">
       <Card dis-hover>
-        <p slot="title" class="exam-title"><Icon type="md-paper" size="20"/> 课程测验管理</p>
+        <p slot="title" class="exam-title"><Icon type="md-create" size="20"/> 课程测验管理</p>
         <Row :gutter="15">
           <Col span="8" v-for="item in cards" :key="item.eid">
             <Card class="exam-card">
@@ -9,12 +9,32 @@
                 {{ item.title }} 
               </p>
               <p>考试时间：{{ item.time }}</p>
-              <div slot="extra">
-                <i-switch v-model="item.open" size="small" @on-change="switchExam" />
-                <Divider type="vertical" />
-                <Button shape="circle" size="small" @click.native="openExamCard(item)">
+              <DatePicker 
+                type="date" 
+                placeholder="Select date" 
+                style="width: 150px; margin-right: 15px" 
+                :disabled="!item.isDatePicker"
+                @on-change="(date) => {dateChange(date, item)}"
+              >
+              </DatePicker>
+              <Tooltip content="修改考试时间" v-if="!item.isDatePicker">
+                <Button size="small" @click.native="editDate(item)">
                   <Icon type="md-create" />
                 </Button>
+              </Tooltip>
+              <Button v-else size="small" @click.native="submitDate(item)">
+                <span >确定</span>
+              </Button>
+              <div slot="extra">
+                <Tooltip content="是否开启考试">
+                  <i-switch v-model="item.open" size="small" @on-change="switchExam" />
+                </Tooltip>
+                <Divider type="vertical" />
+                <Tooltip content="编辑试题">
+                  <Button shape="circle" size="small" @click.native="openExamCard(item)">
+                    <Icon type="md-create" />
+                  </Button>
+                </Tooltip>
               </div>
             </Card>
           </Col>
@@ -30,45 +50,65 @@ export default {
       switch1: false,
       cards: [
         {
-          title: 'The standard card 1sldkfjksdjl',
+          title: 'xxxx测验 1',
           time: '2019-4-3',
           eid: 1,
-          open: true
+          open: true,
+          isDatePicker: false
         },
         {
-          title: 'The standard card 2',
+          title: 'xxxxx测验 2',
           time: '2019-4-3',
           eid: 2,
-          open: false
+          open: false,
+          isDatePicker: false
         },
         {
-          title: 'The standard card 3',
+          title: 'xxxxx测验 3',
           time: '2019-4-3',
           eid: 3,
-          open: true
+          open: true,
+          isDatePicker: false
         },
         {
-          title: 'The standard card 4',
+          title: 'The standard card 4哇哇哇哇哇',
           time: '2019-4-3',
           eid: 4,
-          open: false
+          open: false,
+          isDatePicker: false
         },
         {
           title: 'The standard card 5',
           time: '2019-4-3',
           eid: 5,
-          open: false
+          open: false,
+          isDatePicker: false
         }
       ]
     }
   },
   methods: {
-    openExamCard({ eid, title: examTitle }) {
+    openExamCard ({ eid, title: examTitle }) {
       this.$router.push({ name: 'exam-resource-detail', params: { eid, examTitle } })
     },
-    switchExam(val) {
+    switchExam (val) {
       console.log(val);
-    }
+    },
+    editDate (item) {
+      item.isDatePicker = true
+    },
+    dateChange (date, item) {
+      console.log(date, item);
+      item.tmpDate = `${date}`
+    },
+    submitDate (item) {
+      item.isDatePicker = false
+      if (item.tmpDate) {
+        // 发请求
+        item.time = item.tmpDate
+        // 写法可优化
+      }
+    } 
   }
 }
 </script>
